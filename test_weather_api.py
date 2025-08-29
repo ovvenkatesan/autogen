@@ -21,9 +21,9 @@ async def test_weather_api():
     print("=" * 50)
     
     # Test 1: Weather by coordinates (as per your example)
-    print("\n1️⃣ Weather by Coordinates (44.34, 10.99):")
+    print("\n1️⃣ Weather by Coordinates (13.084231, 80.270275):") #13.084231, 80.270275
     try:
-        url = f"https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid={api_key}&units=metric"
+        url = f"https://api.openweathermap.org/data/2.5/weather?lat=13.084231&lon=80.270275&appid={api_key}&units=metric"
         
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
@@ -40,14 +40,14 @@ async def test_weather_api():
                     print(f"   👁️ Visibility: {data.get('visibility', 'N/A')} m")
                 else:
                     print(f"   ❌ Error: HTTP {response.status}")
-        except Exception as e:
-            print(f"   ❌ Error: {e}")
+    except Exception as e:
+        print(f"   ❌ Error: {e}")
     
     # Test 2: Weather by city name
     print("\n2️⃣ Weather by City (London, GB):")
     try:
         # First get coordinates
-        geocode_url = f"http://api.openweathermap.org/geo/1.0/direct?q=London,GB&limit=1&appid={api_key}"
+        geocode_url = f"http://api.openweathermap.org/geo/1.0/direct?q=Chennai,IN&limit=1&appid={api_key}"
         
         async with aiohttp.ClientSession() as session:
             async with session.get(geocode_url) as response:
@@ -77,8 +77,8 @@ async def test_weather_api():
                         print("   ❌ City not found")
                 else:
                     print(f"   ❌ Geocoding Error: HTTP {response.status}")
-        except Exception as e:
-            print(f"   ❌ Error: {e}")
+    except Exception as e:
+        print(f"   ❌ Error: {e}")
     
     # Test 3: Raw API response for debugging
     print("\n3️⃣ Raw API Response (First 200 chars):")
@@ -93,8 +93,8 @@ async def test_weather_api():
                     print(f"   📄 Response: {raw_response}")
                 else:
                     print(f"   ❌ Error: HTTP {response.status}")
-        except Exception as e:
-            print(f"   ❌ Error: {e}")
+    except Exception as e:
+        print(f"   ❌ Error: {e}")
 
 if __name__ == "__main__":
     asyncio.run(test_weather_api())
