@@ -27,4 +27,13 @@ async def text_task():
     result = await assistant.run(task=text_message)
     print(result.messages[-1].content)
 
-asyncio.run(text_task())
+async def image_task():
+    response = requests.get("https://picsum.photos/id/237/200/300")
+    image = Image.open(BytesIO(response.content))
+    ag_image = AGImage(image)
+
+    multimodal_message = MultiModalMessage(content=["What is in this image?", ag_image], source="user")
+    result = await assistant.run(task=multimodal_message)
+    print(result.messages[-1].content)
+
+asyncio.run(image_task())
