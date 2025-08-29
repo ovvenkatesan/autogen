@@ -3,16 +3,22 @@ from autogen_agentchat.agents import AssistantAgent
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 from dotenv import load_dotenv
 import os
+from pyowm import OWM
+from pyowm.utils import config
+from pyowm.utils import timestamps
 
 load_dotenv()
 
 api_key = os.getenv("OPENAI_API_KEY")
 model_client = OpenAIChatCompletionClient(api_key=api_key, model="gpt-4o-mini")
 
-
+owm = OWM('OPENWEATHERMAP_API_KEY')
+weather_mgr = owm.weather_manager()
 
 def getWeather(city: str) -> str:
-    return f"The weather in {city} is sunny"
+    observation = weather_mgr.weather_at_place('Chennai,IN')
+    weather = observation.weather
+    return f"Temperature: {weather.temperature('celsius')['temp']}°C"
 
 def addNumbers(a: int, b: int) -> str:
     return f"The sum of {a} and {b} is {a + b}"

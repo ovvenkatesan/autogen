@@ -1,4 +1,5 @@
 autogen-agentchat
 autogen-ext[openai]
 python-dotenv
-asyncio
+pyowm
+aiohttp
